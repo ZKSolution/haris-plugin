@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "haris": {
+      "command": "python",
+      "args": ["-m", "haris.mcp"]
+    }
+  }
+}

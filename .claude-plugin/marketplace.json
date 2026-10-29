@@ -1,0 +1,21 @@
+{
+  "name": "zklogic",
+  "owner": {
+    "name": "ZKLogic",
+    "email": "haris@zklogic.com",
+    "url": "https://haris.zklogic.com"
+  },
+  "metadata": {
+    "description": "Guardrails and tooling from ZKLogic. Haris detects prompt injection and Saudi PII in Arabic, Arabizi and English.",
+    "version": "0.2.1"
+  },
+  "plugins": [
+    {
+      "name": "haris",
+      "source": "./plugins/haris",
+      "description": "Arabic/English prompt-injection and Saudi PII detection: MCP tools, scan commands, and a hook that checks fetched web content.",
+      "category": "security",
+      "keywords": ["security", "prompt-injection", "arabic", "pii", "saudi", "owasp-llm01"]
+    }
+  ]
+}

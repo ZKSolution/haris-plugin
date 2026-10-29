@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/scan_fetched.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
