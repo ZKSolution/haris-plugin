@@ -45,6 +45,7 @@ than reporting that the files exist.
 | MCP tool `scan_text` | Claude can call it itself, on anything it is about to trust |
 | MCP tool `redact_text` | Returns text with identifiers replaced by labels |
 | Hook on `WebFetch` / `WebSearch` | Scans what came back; on a hit, tells Claude to treat it as data, never as instructions |
+| Hook on **your prompt**, before it is sent | Checks what you typed. Personal data **stops the prompt** so you can redact it; an injection you pasted for analysis is annotated instead |
 
 ## Configuration
 
@@ -57,11 +58,17 @@ there would silently win over the one you exported.
 | `HARIS_ENABLE_ML` | `0` | `1` loads the classifier as well as the rules. It catches paraphrases the rules miss, and it also flags more ordinary text — opt in deliberately |
 | `HARIS_MCP_BACKEND` | `local` | `local` scans in this process. `http` calls a shared service instead, so a team runs one copy |
 | `HARIS_SERVICE_URL` | `http://127.0.0.1:8000` | Where that service is, when the backend is `http` |
+| `HARIS_PROMPT_GUARD` | `warn` | The pre-submit check. `warn`: personal data blocks, pasted injection is annotated. `block`: both block. `pii`: only personal data, injection ignored. `off`: disabled |
 
 ## What it does not do
 
-- **It flags; it never blocks.** Nothing is intercepted or rewritten. A finding is
-  information for you and for Claude.
+- **It flags; it never blocks — with one deliberate exception.** The pre-submit check can
+  stop *your own* prompt when it contains personal data, because a prompt cannot be unsent
+  and you are the person being protected. Nothing else is intercepted or rewritten, and
+  `HARIS_PROMPT_GUARD=off` removes even that.
+- **A stopped prompt is not a secret kept.** The block happens before the text leaves your
+  machine, which is the point — but the text can still reach your local session transcript
+  and prompt history. Claude Code's own documentation says so, and so do we.
 - **The hook runs after the fetch**, because that is when a `PostToolUse` hook runs. It
   cannot stop a page being read; it makes sure what the page tried is stated plainly
   instead of sitting unremarked in the context window.

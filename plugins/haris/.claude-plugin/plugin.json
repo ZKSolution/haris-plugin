@@ -1,7 +1,7 @@
 {
   "name": "haris",
   "description": "Arabic/English prompt-injection and Saudi PII detection. Adds the Haris MCP tools, commands for scanning text, files and untrusted content, and an optional hook that checks fetched web pages before you act on them.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": {
     "name": "ZKLogic",
     "email": "haris@zklogic.com",
