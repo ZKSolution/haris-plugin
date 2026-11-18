@@ -11,10 +11,11 @@ Haris must be importable by the `python` on your PATH — the same `python` Clau
 will use, which is often not your project venv:
 
 ```bash
-pip install "haris-guard[mcp]>=0.2.1"
+pip install "haris-guard[mcp]>=0.3.2"
 ```
 
-The version floor is deliberate. The MCP server first reached PyPI in 0.2.1, and an unpinned
+The version floor is deliberate. 0.3.2 is the first release whose `backend_policy` tool works
+on this install; before 0.2.1 there is no MCP server at all, and an unpinned
 install can resolve 0.1.0, which has no `haris.mcp` and no `mcp` extra — the plugin
 then loads and every tool call fails. Pinned, pip says "no matching distribution"
 instead, which is a sentence you can act on.
